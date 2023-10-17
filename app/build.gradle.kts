@@ -4,11 +4,11 @@ plugins {
 
 android {
     namespace = "fr.isep.APPMusculation"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "fr.isep.APPMusculation"
-        minSdk = 30
+        minSdk = 33
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -36,4 +36,5 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha13")
 }
