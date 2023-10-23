@@ -7,11 +7,11 @@
     android:layout_height="match_parent"
     android:background="#2C2C2C">
 
+    <!-- Your Main Content Layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
-
+        android:padding="16dp">
 
 
         <ImageView
@@ -38,45 +38,74 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="121dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="36dp"
-            android:layout_marginEnd="132dp"
-            android:text="HISTORY"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logo"
-            tools:ignore="MissingConstraints" />
-
-        <CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="367dp"
-            android:layout_height="298dp"
-            android:layout_marginBottom="156dp"
-            android:backgroundTint="#3DDC84"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:background="#3DDC84"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="388dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="4dp"
-            android:text="TextView"
+        <EditText
+            android:id="@+id/editTextText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="456dp"
+            android:layout_marginEnd="75dp"
+            android:ems="10"
+            android:hint="Body Fat (%)"
+            android:inputType="text"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/calendarView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:layout_constraintVertical_bias="0.357" />
+            android:textColorHint="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+        <EditText
+            android:id="@+id/editTextText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="75dp"
+            android:ems="10"
+            android:hint="Weight (kg)"
+            android:inputType="text"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+
+        <EditText
+            android:id="@+id/editTextDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="75dp"
+            android:layout_marginBottom="84dp"
+            android:ems="10"
+            android:hint="Date"
+            android:inputType="date"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextText2"
+            app:layout_constraintVertical_bias="0.636" />
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="136dp"
+            android:backgroundTint="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/editTextText"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="104dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="126dp"
+            android:backgroundTint="#3DDC84"
+            android:text="ADD"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -100,5 +129,6 @@
         <include layout="@layout/menu_item" android:id="@+id/menu_item_3" />
         <include layout="@layout/menu_item" android:id="@+id/menu_item_4" />
     </LinearLayout>
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

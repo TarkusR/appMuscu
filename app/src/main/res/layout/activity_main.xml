@@ -13,9 +13,6 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Hamburger Menu -->
-
-        <!-- Logo -->
 
         <ImageView
             android:id="@+id/hamburgerMenu"
@@ -43,7 +40,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Side Menu Layout (You can extract this into a separate XML file if desired) -->
     <LinearLayout
         android:id="@+id/side_menu"
         android:layout_width="300dp"
@@ -51,7 +47,19 @@
         android:layout_gravity="start"
         android:orientation="vertical"
         android:background="#2C2C2C">
-        <!-- Your side menu content goes here -->
+
+        <ListView
+            android:id="@+id/drawer_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="0.5dp"
+            android:listSelector="@android:color/darker_gray"/>
+            <include layout="@layout/menu_item" android:id="@+id/menu_item_1" />
+            <include layout="@layout/menu_item" android:id="@+id/menu_item_2" />
+            <include layout="@layout/menu_item" android:id="@+id/menu_item_3" />
+            <include layout="@layout/menu_item" android:id="@+id/menu_item_4" />
     </LinearLayout>
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

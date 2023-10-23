@@ -1,41 +1,33 @@
 package fr.isep.APPMusculation;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
+import java.util.HashSet;
+import java.util.Set;
 
-import java.util.ArrayList;
-import java.util.List;
+public class HistoryActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
-    private SharedPreferences sharedPreferences;
     private DrawerLayout drawerLayout;
     private ImageView hamburgerMenu;
-    private RecyclerView workoutsRecyclerView;
-    private WorkoutAdapter workoutAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.acceuil);
+        setContentView(R.layout.history);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         hamburgerMenu = findViewById(R.id.hamburgerMenu);
-        sharedPreferences = getSharedPreferences("WorkoutPrefs", Context.MODE_PRIVATE);
+
         hamburgerMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,11 +41,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setupMenuItems();
-        workoutsRecyclerView = findViewById(R.id.workout_recycler_view);
-        workoutsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<String> savedWorkouts = getSavedWorkouts();
-        workoutAdapter = new WorkoutAdapter(this, savedWorkouts);
-        workoutsRecyclerView.setAdapter(workoutAdapter);
+        updateWorkoutCount();
     }
 
     private void setupMenuItems() {
@@ -91,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         menuItem1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                Intent intent = new Intent(HistoryActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -99,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         menuItem2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CreateWorkoutActivity.class);
+                Intent intent = new Intent(HistoryActivity.this, CreateWorkoutActivity.class);
                 startActivity(intent);
             }
         });
@@ -107,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         menuItem3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+                Intent intent = new Intent(HistoryActivity.this, HistoryActivity.class);
                 startActivity(intent);
             }
         });
@@ -115,25 +103,7 @@ public class MainActivity extends AppCompatActivity {
         menuItem4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, GraphActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        Button createWorkoutButton = findViewById(R.id.button);
-        createWorkoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CreateWorkoutActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        TextView armWorkoutTextView1 = findViewById(R.id.textView7);
-        armWorkoutTextView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, WorkoutActivity.class);
+                Intent intent = new Intent(HistoryActivity.this, GraphActivity.class);
                 startActivity(intent);
             }
         });
@@ -141,27 +111,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private List<String> getSavedWorkouts() {
-        List<String> retrievedExercises = new ArrayList<>();
+    private void updateWorkoutCount() {
+        SharedPreferences sharedPreferences = getSharedPreferences("WorkoutPrefs", Context.MODE_PRIVATE);
+        Set<String> workoutSet = sharedPreferences.getStringSet("Workouts", new HashSet<String>());
+        long currentTime = System.currentTimeMillis();
+        long thirtyDaysInMillis = 30L * 24L * 60L * 60L * 1000L;
+        int count = 0;
 
-
-        String exercisesString = sharedPreferences.getString("AllExercises", "");
-
-
-        if (!exercisesString.equals("")) {
-            try {
-                JSONArray jsonArray = new JSONArray(exercisesString);
-
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    retrievedExercises.add(jsonArray.getString(i));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
+        for (String time : workoutSet) {
+            long timestamp = Long.parseLong(time);
+            if (currentTime - timestamp <= thirtyDaysInMillis) {
+                count++;
             }
         }
-        return retrievedExercises;
+
+        String message = "You worked out " + count + " times in the last 30 days.";
+
+
+        TextView textView6 = findViewById(R.id.textView6);
+        textView6.setText(message);
     }
-
-
-
 }
